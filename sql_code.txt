@@ -1,0 +1,42 @@
+CREATE TABLE users (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	first_name VARCHAR (50) NOT NULL,
+	last_name VARCHAR (50) NOT NULL,
+	address VARCHAR (150) NOT NULL,
+	phone VARCHAR (9) NOT NULL,
+	category VARCHAR (50) NOT NULL,
+	password VARCHAR (50) NOT NULL
+);
+
+CREATE TABLE categories (
+	id INT NOT NULL PRIMARY KEY,
+	type VARCHAR (20) NOT NULL
+);
+
+CREATE TABLE products (
+	id INT NOT NULL PRIMARY KEY,
+	name VARCHAR (40) NOT NULL,
+	price INT NOT NULL,
+	stock INT NOT NULL,
+	description VARCHAR (150) NOT NULL,
+	category_id INT REFERENCES categories (id)
+);
+
+CREATE TABLE buys (
+	id BIGSERIAL NOT NULL PRIMARY KEY,
+	date DATE NOT NULL,
+	price INT NOT NULL,
+	quantity INT NOT NULL,
+	user_id BIGINT REFERENCES users (id),
+	product_id INT REFERENCES products (id)
+);
+
+INSERT INTO categories (
+	id,
+	type
+) VALUES (1, 'coffee');
+
+INSERT INTO categories (
+	id,
+	type
+) VALUES (2, 'dessert');
