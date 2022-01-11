@@ -1,0 +1,178 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#sign-container{
+    display: flex;
+    justify-content: center;
+}
+
+body{
+    background-image: url(../imagenes/fondo-black.jpg);
+    height: 100vh;
+    font-family:'Lato', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.error{
+    color: red;
+}
+
+.correct{
+    color: rgb(0, 255, 0);
+}
+
+.hidden{
+    display: none;
+}
+
+/* LOGIN */
+
+input{
+    color: black;
+}
+
+#login-container{
+    background-color:rgba(0, 0, 0, 0.5);
+    margin: 30px 5px 0px 5px;
+    height: 600px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+#login-container a:first-child{
+    color: white;
+    font-size: 50px;
+    text-align: left;
+}
+
+
+#login-container h1{
+    text-align: center;
+}
+
+#login-container form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#login-container input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+#login-container button{
+    background-color: tomato;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    
+}
+
+#login-container a{
+    color: white;
+    text-align: end;
+}
+
+#login-container a:hover{
+    color: tomato;
+}
+
+/* SIGN UP */
+
+#signup-container{
+    background-color:rgba(0, 0, 0, 0.5);
+    margin: 30px 5px 0px 5px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 150vh;
+
+}
+
+#signup-container a:first-child{
+    color: white;
+    font-size: 50px;
+    text-align: left;
+}
+
+
+#signup-container h1{
+    text-align: center;
+}
+
+#signup-container form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#signup-container input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+#signup-container button{
+    background-color: tomato;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    
+}
+
+#signup-container a:hover{
+    color: tomato;
+}
+
+#signup-container a{
+    color: white;
+    text-align: end;
+}
+
+@media (min-width:1025px){
+
+    body{
+        display: flex;
+        justify-content: center;
+    }
+
+    /* LOGIN */
+    
+
+    #login-container{
+    width: 50rem;
+    height: 90vh;
+    }
+
+
+    #signup-container{
+        width: 50rem;
+        
+    }
+
+}
