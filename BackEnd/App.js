@@ -7,6 +7,8 @@ const productRoutes = require('./products/routes')
 // const cartRoutes = require('./cart/routes')
 // const userRoutes = require('./users/routes')
 
+require('dotenv').config();
+
 const cors = (req, res, next) => {
    res.header('Access-Control-Allow-Origin', '*');
    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
