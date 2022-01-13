@@ -5,7 +5,7 @@ CREATE TABLE users (
 	address VARCHAR (150) NOT NULL,
 	phone VARCHAR (9) NOT NULL,
 	category VARCHAR (50) NOT NULL,
-	password VARCHAR (50) NOT NULL
+	password VARCHAR (150) NOT NULL
 );
 
 CREATE TABLE categories (
@@ -14,12 +14,13 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE products (
-	id INT NOT NULL PRIMARY KEY,
+	id VARCHAR (5) NOT NULL PRIMARY KEY,
 	name VARCHAR (40) NOT NULL,
 	price INT NOT NULL,
 	stock INT NOT NULL,
-	description VARCHAR (150) NOT NULL,
-	category_id INT REFERENCES categories (id)
+	quantity INT NOT NULL,
+	description VARCHAR (250) NOT NULL,
+	category_id INT REFERENCES categories (id) NOT NULL
 );
 
 CREATE TABLE buys (
@@ -27,8 +28,8 @@ CREATE TABLE buys (
 	date DATE NOT NULL,
 	price INT NOT NULL,
 	quantity INT NOT NULL,
-	user_id BIGINT REFERENCES users (id),
-	product_id INT REFERENCES products (id)
+	user_id BIGINT REFERENCES users (id) NOT NULL,
+	product_id INT REFERENCES products (id) NOT NULL
 );
 
 INSERT INTO categories (
@@ -40,3 +41,123 @@ INSERT INTO categories (
 	id,
 	type
 ) VALUES (2, 'dessert');
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('C1', 'Mocha', 120, 1, 1, 'Agridulce, pero en la mejor manera. Un poco de crema batida y una pizca de virutas de chocolate.', 1);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('C2', 'Caramel', 150, 1, 1, 'Nuestro Caramel Macchiato es una deliciosa mezcla de intenso espresso con cremosa leche y el dulce sabor y textura del caramelo.', 1);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('C3', 'Latte Vanilla', 130, 1, 1, 'Un clásico con un toque diferente. Esta receta lleva tu café con leche a otro nivel de delicia con un toque de vainilla.', 1);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('C4', 'Mocha Blanco', 135, 1, 1, 'Irresistible combinación de chocolate blanco, shots de Espresso y leche perfectamente vaporizada, coronado con crema batida', 1);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('C5', 'Latte', 125, 1, 1, 'Combinación de café espresso con perfecta leche vaporizada.', 1);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('C6', 'Latte Cinamon', 155, 1, 1, 'Agregamos leche recién vaporizada y jarabe con sabor a canela dolce a nuestro espresso clásico, cubierto con crema batida azucarada y una cobertura de canela dolce para brindarle un sabor fantástico.', 1);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('D1', 'Budín', 100, 1, 1, 'Nuestro budín esta hecho con ingredientes de primera calidad, para brindarte el mejor sabor del mercado.', 2);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('D2', 'Medialuna', 150, 1, 1, 'Riquisimas medialunas para acompañar un buen café.', 2);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('D3', 'Muffin de pasas', 160, 1, 1, 'Los maffins más ricos con pasas seleccionadas de la mejor calidad.', 2);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('D4', 'Muffin de choco', 160, 1, 1, 'Los maffins más ricos, pero esta vez con chocolate para darle un buen toque dulce.', 2);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('D5', 'Muffin DDL', 160, 1, 1, 'Maffins rellenos del más rico dulce de leche, siempre caen bien.', 2);
+
+INSERT INTO products (
+	id,
+	name,
+	price,
+	stock,
+	quantity,
+	description,
+	category_id
+) VALUES ('D6', 'Roll de canela', 200, 1, 1, 'Nuestro producto estrella, estos roll de canela te van a encantar.', 2);

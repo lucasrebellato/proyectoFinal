@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router()
-const productController = require('./controller')
+const userController = require('./controller')
 
-router.get('/',TaskController.getTask)
+router.get('/getUsers', userController.getUsers)
 
-router.post('/',TaskController.addTask)
+router.get('/logUsers', userController.logUsers)
 
-router.delete('/:id',TaskController.deleteTask) 
+router.post('/addUser', userController.addUser)
 
-router.get('/:id',TaskController.getTaskById)
+router.delete('/:id', userController.deleteUser) 
+
 
 module.exports = router;

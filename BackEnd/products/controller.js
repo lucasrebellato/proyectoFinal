@@ -1,25 +1,21 @@
 const Product = require('./product');
-const {query} = require('../services/pool');
 
 
 /* OBTENCION DE DATOS */
 
 async function getCoffee(req, res) {
-      const result = await Product.findAll();
-      res.send(result);
+    res.send(await Product.findAll(
+    {  where: {
+        category_id:1
+      } } 
+    ));
   }
 
 async function getDessert(req,res) {
-      const result = await Product.findAll();
-      res.send(result);
+    res.send(await Product.findAll({  where: {
+      category_id:2
+    } } ));
   }  
-
-
-
-
-
-
-
 
 
 
@@ -60,114 +56,6 @@ async function getDessert(req,res) {
 //       res.send({ message: 'Se ha eliminado exitosamente', Desserts: Desserts });
 //     };
 //   }
-
-/* DATOS */
-
-// let Coffees = [
-//     {
-//       "id": "c1",
-//       "name": "Mocha",
-//       "price": 120,
-//       "stock": 1,
-//       "category": "Cafe", 
-//       "quantity": 1			
-//     },
-//   {
-//       "id": "c2",
-//       "name": "Caramel",
-//       "price": 150,
-//       "stock": 1,
-//       "category": "Cafe", 
-//       "quantity": 1					
-//     },
-//   {
-//       "id": "c3",
-//       "name": "Latte Vanilla",
-//       "price": 130,
-//       "stock": 1,
-//       "category": "Cafe", 
-//       "quantity": 1			 			
-//     },
-//   {
-//       "id": "c4",
-//       "name": "Mocha Blanco",
-//       "price": 135,
-//       "stock": 1,
-//       "category": "Cafe", 
-//       "quantity": 1			 			
-//     },
-//   {
-//       "id": "c5",
-//       "name": "Latte",
-//       "price": 125,
-//       "stock": 1,
-//       "category": "Cafe", 
-//       "quantity": 1			 			
-//     },
-//   {
-//       "id": "c6",
-//       "name": "Latte Cinamon",
-//       "price": 155,
-//       "stock": 1,
-//       "category": "Cafe", 
-//       "quantity": 1			 			
-//     }
-//    ]
-
-// let Desserts = [
-//     {
-//         "id": "d1",
-//         "name": "Budin",
-//         "price": 100,
-//         "stock": 1,
-//         "category": "Postre", 
-//         "quantity": 1			 			
-//       },
-//     {
-//         "id": "d2",
-//         "name": "Medialuna",
-//         "price": 150,
-//         "stock": 1,
-//         "category": "Postre", 
-//         "quantity": 1			 			
-//       },
-//     {
-//         "id": "d3",
-//         "name": "Muffin de pasas",
-//         "price": 160,
-//         "stock": 1,
-//         "category": "Postre", 
-//         "quantity": 1			 			
-//       },
-//     {
-//         "id": "d4",
-//         "name": "Muffin de choco",
-//         "price": 160,
-//         "stock": 1,
-//         "category": "Postre", 
-//         "quantity": 1			 			
-//       },
-//     {
-//         "id": "d5",
-//         "name": "Muffin ddl",
-//         "price": 160,
-//         "stock": 1,
-//         "category": "Postre", 
-//         "quantity": 1			 			
-//       },
-//     {
-//         "id": "d6",
-//         "name": "Roll de canela",
-//         "price": 200,
-//         "stock": 1,
-//         "category": "Postre", 
-//         "quantity": 1			 			
-//       }
-//     ]
-
-
-const maxExistingIdCoffee = Coffees.sort((a, b) => b.id - a.id)[0].id;
-const maxExistingIdDessert = Desserts.sort((a, b) => b.id - a.id)[0].id;
 
 module.exports = {
     // addCoffee,

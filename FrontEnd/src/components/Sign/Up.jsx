@@ -8,8 +8,36 @@ import {
   } from "react-router-dom";
 import * as utils from "../../js/validadores"
 
+    const SignUp = () =>{
 
-  const SignUp = () =>{
+    const addUser = (user) =>{ // {task:'description', priority: 'priority' }
+        console.log('qandas gil')
+        fetch('http://localhost:8020/Users/addUser',
+        {
+            method:'POST',
+            headers:{ 
+            'Accept': 'application/json',
+            'Content-Type':'application/json'
+            },
+            body: JSON.stringify({...user})
+            })
+            .then((data) => data.json())
+            .then((data) => {
+                console.log(data)
+            }).catch(e=> console.log(e))
+        }
+    
+    const createUser = () =>{
+            addUser({
+                first_name: name,
+                last_name: lastName,
+                address: address,
+                phone: phone,
+                category:'cliente',
+                password:password})
+        
+    }
+    
     const [name, setName] = useState ("")
     const [lastName, setLastName] = useState ("")
     const [address, setAddress] = useState ("")
@@ -26,8 +54,9 @@ import * as utils from "../../js/validadores"
 
 
     const validateSignUp = () => {
-        (utils.validateNameOrLast(name) || utils.validateNameOrLast(lastName) || utils.validateAddress(address) || utils.validateTelephone(phone) || utils.validatePassword(password) || utils.validateEmail(email)) ? setAllOk(false) : setAllOk(true);
-        updateInfo();
+         // (utils.validateNameOrLast(name) || utils.validateNameOrLast(lastName) || utils.validateAddress(address) || utils.validateTelephone(phone) || utils.validatePassword(password) || utils.validateEmail(email)) ? setAllOk(false) : setAllOk(true);
+        // updateInfo();
+        createUser();
     }
     
     const updateInfo = () => {
@@ -98,11 +127,12 @@ import * as utils from "../../js/validadores"
                     )
                 }
 
-                <button type="button" onClick={() => validateSignUp()}>Crear</button> 
+                <button type="button" onClick={() => createUser()}>Crear</button> 
                 {
                     allOk && (
                         <p className="correct">Tu usuario ha sido creado {name}, gracias!</p> 
                     )
+
                 }
             </form>
             

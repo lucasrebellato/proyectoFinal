@@ -1,30 +1,34 @@
-function addProduct() {
-    return (req, res) => {
-      console.log(req.body);
-      let task = req.body;
-      task.id = maxExistingId + 1;
-      tasks.push(task);
-      res.send({ message: 'La tarea se ha agregado con éxito', task: task });
-    };
-  }
+const md5 = require('md5');
+const User = require('./user');
 
-function deleteTask() {
-    return (req, res) => {
-      tasks = tasks.filter(task => task.id != req.params.id);
-      res.send({ message: 'Se ha eliminado exitosamente', tasks: tasks });
-    };
-  }
 
-function getTask() {
-    return (req, res) => {
-      res.send(tasks);
-    };
+async function addUser(req, res) {
+  console.log('LLEGUE HASTA ACA')
+  let user = req.body;
+  user.password = md5(req.body.password);
+  res.send({ message: 'El usuario fue creado con éxito', user:  await User.create(user)});
   }
+  
 
-function getTaskById() {
-    return (req, res) => {
-      res.send(getById(req));
-    };
-  }
+async function deleteUser(req, res) {
+  await User.destroy({where: {id:req.params.id}})
+  res.send({ message: 'Se ha eliminado exitosamente', user: await User.findAll() });
+};
 
-  let cart = [ ]
+async function getUsers(req, res) {
+  res.send(await User.findAll());
+}
+
+
+async function logUsers(req, res) {
+  res.send(await User.findAll());
+}
+
+
+
+module.exports = {
+  addUser,
+  deleteUser,
+  getUsers,
+  logUsers
+}

@@ -6,12 +6,12 @@ router.get('/Coffees',productController.getCoffee)
 
 router.get('/Desserts',productController.getDessert)
 
-router.post('/Coffees',productController.addCoffee)
+// router.post('/Coffees',productController.addCoffee)
 
-router.post('/Desserts',productController.addDessert)
+// router.post('/Desserts',productController.addDessert)
 
-router.delete('/Coffees/:id',productController.deleteCoffee) 
+// router.delete('/Coffees/:id',productController.deleteCoffee) 
 
-router.delete('/Desserts/:id',productController.deleteDessert)
+// router.delete('/Desserts/:id',productController.deleteDessert)
 
 module.exports = router;

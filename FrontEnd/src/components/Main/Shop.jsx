@@ -20,7 +20,6 @@ const Shop = () =>{
     const [details, setDetails] = useState("")
 
     const addToCart = (product) => {
-        
         setTotal(total + product.price)
         let index = cart.indexOf(product)
         
