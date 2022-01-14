@@ -12,10 +12,55 @@ import { getDefaultNormalizer } from '@testing-library/dom';
 
   
 const SignIn = () =>{
+
+    const logUser = (user) =>{ // {task:'description', priority: 'priority' }
+        console.log('qandas gil')
+        fetch('http://localhost:8020/Users/logUser',
+        {
+            method:'POST',
+            headers:{ 
+            'Accept': 'application/json',
+            'Content-Type':'application/json'
+            },
+            body: JSON.stringify({...user})
+            })
+            .then((data) => data.json())
+            .then((data) => {
+                setMessage(data.message);
+                setLoginStatus(data)
+                console.log(data)
+            }).catch(e=> setLoginStatus(e))
+        }
+
+    useEffect(() => {
+        fetch("http://localhost:8020/Users/checkUser", {
+            method:'GET',
+            credentials: 'same-origin'
+        })
+        .then(data => data.json())
+        .then(data =>{
+            if(data.loggedIn == true){
+            setLoginStatus(data.user[0].email)
+            console.log("SE LOGEO")
+            }else {
+                console.log('comiste queso')
+            }
+        }
+            )
+        .catch(e =>{
+            console.log(e)
+        }
+            )
+    },[])
+    
+
+
     const [email, setEmail] = useState ("")
     const [password, setPassword] = useState ("")
     const [falseEmail, setFalseEmail] = useState ("")
     const [falsePassword, setFalsePassword] = useState ("")
+    const [loginStatus, setLoginStatus] = useState("")
+    const [message, setMessage] = useState ("")
     const [allOk, setAllOk] = useState (false)
     const [IsUser, setIsUser] = useState(false)
 
@@ -24,13 +69,24 @@ const SignIn = () =>{
         
         (utils.validateEmail(email)  || utils.validatePassword(password)) ? setAllOk(false) : setAllOk(true); 
         updateInfo();
-        
+        if(allOk){
+            createUser();
+        }
     }
     
     const updateInfo = () => {     
         setFalsePassword(utils.validatePassword(password));
         setFalseEmail(utils.validateEmail(email));
     }
+
+    
+    const createUser = () =>{
+        logUser({
+            email: email,
+            password:password}
+        )
+    }
+
 
 
     return(
@@ -60,10 +116,16 @@ const SignIn = () =>{
             
             <button type="button" onClick={() => validateSignIn()}>Ingresar</button>
             {
-                        allOk && (
-                            <p className="correct">Ha ingresado correctamente, {email}</p> 
+                        message == "Logeado correctamente." && (
+                            <p className="correct">{message}</p> 
                         )
-                        }
+            }
+            {
+                        (message == "Usuario o contraseña erroneos." || message == "El usuario no existe.")  && (
+                            <p className="error">{message}</p> 
+                        )
+            }
+     
         
         </form>
         

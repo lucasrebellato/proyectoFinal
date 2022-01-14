@@ -1,13 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const sequelize = require('./infrastructure/db')
+const sequelize = require('./infrastructure/db');
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
 const app = express();
 
 const productRoutes = require('./products/routes')
-const userRoutes = require('./users/routes')
+const userRoutes = require('./users/routes');
+const { router } = require('json-server');
 // const cartRoutes = require('./cart/routes')
 
+app.use(express.json());
 
 require('dotenv').config();
 
@@ -24,9 +28,25 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json()); //Cuando reciba algun tipo de dato en un peticion la convierto en json, en cada petion
 
 //cors, configurar cabeceras http
-app.use(cors);
+app.use(
+  cors
+);
 
-app.use("/Tienda", productRoutes);
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  session({
+    key: "userId",
+    secret: "subscribe",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      expires: 60 * 60 * 24,
+    },
+  })
+);
+
+app.use("/Shop", productRoutes);
 // app.use("/Tienda/Carrito", cartRoutes);
 app.use("/Users", userRoutes);
 

@@ -10,7 +10,7 @@ import * as utils from "../../js/validadores"
 
     const SignUp = () =>{
 
-    const addUser = (user) =>{ // {task:'description', priority: 'priority' }
+    const addUser = (user) =>{
         console.log('qandas gil')
         fetch('http://localhost:8020/Users/addUser',
         {
@@ -23,7 +23,9 @@ import * as utils from "../../js/validadores"
             })
             .then((data) => data.json())
             .then((data) => {
-                console.log(data)
+                setMessage(data.message);
+                console.log(message.length);
+
             }).catch(e=> console.log(e))
         }
     
@@ -34,6 +36,7 @@ import * as utils from "../../js/validadores"
                 address: address,
                 phone: phone,
                 category:'cliente',
+                email: email,
                 password:password})
         
     }
@@ -50,13 +53,16 @@ import * as utils from "../../js/validadores"
     const [falsePhone, setFalsePhone] = useState ("")
     const [falseEmail, setFalseEmail] = useState ("")
     const [falsePassword, setFalsePassword] = useState ("")
+    const [message, setMessage] = useState ("")
     const [allOk, setAllOk] = useState (false)
 
 
     const validateSignUp = () => {
-         // (utils.validateNameOrLast(name) || utils.validateNameOrLast(lastName) || utils.validateAddress(address) || utils.validateTelephone(phone) || utils.validatePassword(password) || utils.validateEmail(email)) ? setAllOk(false) : setAllOk(true);
-        // updateInfo();
+         (utils.validateNameOrLast(name) || utils.validateNameOrLast(lastName) || utils.validateAddress(address) || utils.validateTelephone(phone) || utils.validatePassword(password) || utils.validateEmail(email)) ? setAllOk(false) : setAllOk(true);
+        updateInfo();
+        if(allOk){
         createUser();
+        }
     }
     
     const updateInfo = () => {
@@ -127,10 +133,16 @@ import * as utils from "../../js/validadores"
                     )
                 }
 
-                <button type="button" onClick={() => createUser()}>Crear</button> 
+                <button type="button" onClick={() => validateSignUp()}>Crear</button> 
                 {
-                    allOk && (
-                        <p className="correct">Tu usuario ha sido creado {name}, gracias!</p> 
+                    message == "El usuario fue creado con éxito." && (
+                        <p className="correct">{message}</p> 
+                    )
+
+                }
+                {
+                    message == "Email en uso." && (
+                        <p className="error">{message}</p> 
                     )
 
                 }

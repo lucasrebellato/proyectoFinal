@@ -4,7 +4,9 @@ const userController = require('./controller')
 
 router.get('/getUsers', userController.getUsers)
 
-router.get('/logUsers', userController.logUsers)
+router.post('/logUser', userController.logUser)
+
+router.get('/checkUser', userController.checkUser)
 
 router.post('/addUser', userController.addUser)
 

@@ -14,7 +14,7 @@ const DessertsSection = (props) =>{
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch("http://localhost:8020/Tienda/Desserts")
+        fetch("http://localhost:8020/Shop/Desserts")
         .then(data => data.json())
         .then(data =>{
             setDesserts(data);
