@@ -29,7 +29,6 @@ const SignIn = () =>{
                     .then((data) => {
                         localStorage.setItem("email", user.email);
                         setMessage(data.message);
-                        console.log(localStorage.getItem("email"));
                     })
                 }  
                 else throw data.json().then (e => setMessage(e.message))

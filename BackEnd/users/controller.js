@@ -39,8 +39,7 @@ async function logUser(req, res) {
     );
   if (exist_user != null) {
     if (password == exist_user.password) {
-        req.session.user = true;
-        res.send({ message: "Logeado correctamente." });
+        res.status(200).send({ message: "Logeado correctamente." });
       } else {
         res.status(410).send({ message: "Usuario o contraseña erroneos." });
       }   
@@ -51,21 +50,10 @@ async function logUser(req, res) {
  
 
 
-async function checkUser(req, res) {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
-  } else {
-    res.send({ loggedIn: false });
-  }
-}
-
-
-
 
 module.exports = {
   addUser,
   deleteUser,
   getUsers,
-  logUser,
-  checkUser
+  logUser
 }

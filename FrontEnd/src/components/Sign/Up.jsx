@@ -11,7 +11,6 @@ import * as utils from "../../js/validadores"
     const SignUp = () =>{
 
     const addUser = (user) =>{
-        console.log('qandas gil')
         fetch('http://localhost:8020/Users/addUser',
         {
             method:'POST',
@@ -24,7 +23,6 @@ import * as utils from "../../js/validadores"
             .then((data) => data.json())
             .then((data) => {
                 setMessage(data.message);
-
             }).catch(e=> console.log(e))
         }
     

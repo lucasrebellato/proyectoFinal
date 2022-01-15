@@ -1,6 +1,5 @@
 function addProduct() {
     return (req, res) => {
-      console.log(req.body);
       let task = req.body;
       task.id = maxExistingId + 1;
       tasks.push(task);
