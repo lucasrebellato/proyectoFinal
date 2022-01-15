@@ -13,8 +13,7 @@ import { getDefaultNormalizer } from '@testing-library/dom';
   
 const SignIn = () =>{
 
-    const logUser = (user) =>{ // {task:'description', priority: 'priority' }
-        console.log('qandas gil')
+    const logUser = (user) =>{ 
         fetch('http://localhost:8020/Users/logUser',
         {
             method:'POST',
@@ -24,45 +23,29 @@ const SignIn = () =>{
             },
             body: JSON.stringify({...user})
             })
-            .then((data) => data.json())
             .then((data) => {
-                setMessage(data.message);
-                setLoginStatus(data)
-                console.log(data)
-            }).catch(e=> setLoginStatus(e))
+                if(data.status < 300){
+                    data.json()
+                    .then((data) => {
+                        localStorage.setItem("email", user.email);
+                        setMessage(data.message);
+                        console.log(localStorage.getItem("email"));
+                    })
+                }  
+                else throw data.json().then (e => setMessage(e.message))
+            })
+           .catch(e=> setStatus(e.status))
         }
 
-    useEffect(() => {
-        fetch("http://localhost:8020/Users/checkUser", {
-            method:'GET',
-            credentials: 'same-origin'
-        })
-        .then(data => data.json())
-        .then(data =>{
-            if(data.loggedIn == true){
-            setLoginStatus(data.user[0].email)
-            console.log("SE LOGEO")
-            }else {
-                console.log('comiste queso')
-            }
-        }
-            )
-        .catch(e =>{
-            console.log(e)
-        }
-            )
-    },[])
-    
 
 
     const [email, setEmail] = useState ("")
     const [password, setPassword] = useState ("")
     const [falseEmail, setFalseEmail] = useState ("")
     const [falsePassword, setFalsePassword] = useState ("")
-    const [loginStatus, setLoginStatus] = useState("")
     const [message, setMessage] = useState ("")
     const [allOk, setAllOk] = useState (false)
-    const [IsUser, setIsUser] = useState(false)
+    const [status, setStatus] = useState("")
 
 
     const validateSignIn = () =>  {

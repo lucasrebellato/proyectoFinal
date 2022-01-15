@@ -46,6 +46,12 @@ p{
     padding-right: 10px;
 }
 
+
+#logOut-button{
+    color: white;
+    text-decoration: none;
+}
+
 .log{
     grid-column: 3;
     text-align: end;
@@ -280,6 +286,8 @@ footer .fa:hover{
     display: grid;
     gap: 70px;
 }
+
+
 
 #contact button{
     background-color: tomato;

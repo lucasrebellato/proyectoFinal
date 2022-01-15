@@ -24,7 +24,6 @@ import * as utils from "../../js/validadores"
             .then((data) => data.json())
             .then((data) => {
                 setMessage(data.message);
-                console.log(message.length);
 
             }).catch(e=> console.log(e))
         }

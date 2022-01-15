@@ -12,16 +12,16 @@ async function addUser(req, res) {
   if(exist_user.length == 0){
   let user = req.body;
   user.password = md5(req.body.password);
-  res.send({ message: 'El usuario fue creado con éxito.', user:  await User.create(user)});
+  res.status(200).send({ message: 'El usuario fue creado con éxito.', user:  await User.create(user)});
   }else{
-  res.send({ message: 'Email en uso.' })
+  res.status(410).send({ message: 'Email en uso.' })
   }
 }
   
 
 async function deleteUser(req, res) {
   await User.destroy({where: {id:req.params.id}})
-  res.send({ message: 'Se ha eliminado exitosamente', user: await User.findAll() });
+  res.status(200).send({ message: 'Se ha eliminado exitosamente', user: await User.findAll() });
 };
 
 async function getUsers(req, res) {
@@ -32,21 +32,20 @@ async function getUsers(req, res) {
 async function logUser(req, res) {
   const email = req.body.email;
   const password = md5(req.body.password);
-
-  const exist_user = await User.findAll(
+  const exist_user = await User.findOne(
   {  where: {
         email: email
       } } 
     );
-  if (exist_user.length > 0) {
-    if (password == exist_user[0].password) {
+  if (exist_user != null) {
+    if (password == exist_user.password) {
         req.session.user = true;
         res.send({ message: "Logeado correctamente." });
       } else {
-        res.send({ message: "Usuario o contraseña erroneos." });
+        res.status(410).send({ message: "Usuario o contraseña erroneos." });
       }   
     } else {
-      res.send({ message: "El usuario no existe." });
+      res.status(415).send({ message: "El usuario no existe." });
     }
 }
  
