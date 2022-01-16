@@ -4,7 +4,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useHistory
   } from "react-router-dom";
 import * as utils from "../../js/validadores"
 import { getDefaultNormalizer } from '@testing-library/dom';
@@ -12,6 +13,7 @@ import { getDefaultNormalizer } from '@testing-library/dom';
 
   
 const SignIn = () =>{
+
 
     const logUser = (user) =>{ 
         fetch('http://localhost:8020/Users/logUser',
@@ -29,6 +31,8 @@ const SignIn = () =>{
                     .then((data) => {
                         localStorage.setItem("email", user.email);
                         setMessage(data.message);
+                        history.push("/")
+                        window.location.reload(false);
                     })
                 }  
                 else throw data.json().then (e => setMessage(e.message))
@@ -45,6 +49,7 @@ const SignIn = () =>{
     const [message, setMessage] = useState ("")
     const [allOk, setAllOk] = useState (false)
     const [status, setStatus] = useState("")
+    const history = useHistory();
 
 
     const validateSignIn = () =>  {
@@ -92,16 +97,18 @@ const SignIn = () =>{
             <input type="password" name="password" id="login-password" placeholder="Contraseña" onChange={e => setPassword (e.target.value)} value={password}/>
             {
                 falsePassword && (
-                    <p className="error">Verifique su contraseña</p>
+                    <p className="error">Verifique su contraseña, con cumple los paramatros minimos.</p>
                     )
             }
             
             <button type="button" onClick={() => validateSignIn()}>Ingresar</button>
             {
                         message == "Logeado correctamente." && (
-                            <p className="correct">{message}</p> 
+                            <p className="correct">{message}</p>
+                            
                         )
             }
+          
             {
                         (message == "Usuario o contraseña erroneos." || message == "El usuario no existe.")  && (
                             <p className="error">{message}</p> 
@@ -111,7 +118,7 @@ const SignIn = () =>{
         
         </form>
         
-        <Link to ="/Sign-Up"  style={{width:"100px"}}>Crear cuenta</Link>
+        <Link to ="/Sign-Up" className='linkToUp'  style={{width:"100px"}}>Crear cuenta</Link>
 
         </div>
     </div>

@@ -8,6 +8,8 @@ router.post('/logUser', userController.logUser)
 
 router.post('/addUser', userController.addUser)
 
+router.post('/Mail', userController.Mail)
+
 router.delete('/:id', userController.deleteUser) 
 
 

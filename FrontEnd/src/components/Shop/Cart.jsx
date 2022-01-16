@@ -7,6 +7,42 @@ import {
 
 const CartSection = (props) =>{
 
+    const addBuy = (buy) =>{
+        fetch('http://localhost:8020/Users/Mail',
+        {
+            method:'POST',
+            headers:{ 
+            'Accept': 'application/json',
+            'Content-Type':'application/json'
+            },
+            body: JSON.stringify({...user})
+            })
+            .then((data) => data.json())
+            .then((data) => {
+                
+            }).catch(e=> console.log(e))
+        }
+    
+    const [user, setUser] = useState ("")
+
+    const isUser = () => {
+        if(localStorage.getItem("email").length != 0){
+            setUser("yes");
+            createBuy();
+        }else {
+            setUser("no");
+        }
+    }
+
+    const createBuy = () =>{
+        props.cart.forEach(product => {
+            // addBuy({
+            //     date: date,
+            //     password:password}
+            // )
+        });
+    }
+
     return (
         <main>
 
@@ -45,8 +81,20 @@ const CartSection = (props) =>{
                
                 {   
                     props.cart.length != 0 &&(
-                        <Link to="/Sign-In" id="buy-button">Comprar</Link>
+                        <button id="buy-button" onClick={() => isUser()}>Comprar</button>
                     )
+                }
+                {
+                    user == "yes" && (
+                        <p className="correct">Compra realizada con exito, le enviaremos un mensaje a su correo.</p> 
+                    )
+
+                }
+                {
+                    user == "no" && (
+                        <p className="error">Debe iniciar sesión para proseguir con la compra.</p> 
+                    )
+
                 }
                 
 

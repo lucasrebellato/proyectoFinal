@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const User = require('./user');
+const nodemailer = require('nodemailer');
 
 
 async function addUser(req, res) {
@@ -29,6 +30,36 @@ async function getUsers(req, res) {
 }
 
 
+async function Mail(req, res) {
+    console.log("llegue hasta back");
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      post: 587,
+      secure: false,
+      auth:{
+        user:"letha.macejkovic96@ethereal.email",
+        pass:"DJ1ZhprG4as3MaUdcB"
+      }
+    })
+
+const mailOptions = {
+  from: req.body.email,
+  to : "origenEcoAlmacen@gmail.com",
+  subject: req.body.name +" ha hecho un comentario",
+  text: req.body.message
+}
+
+transporter.sendMail(mailOptions, (error, info) => {
+  if(error){
+    res.status(500).send(error.message);
+  }else{
+    console.log("mail enviado");
+    res.status(200).jsonp(req.body);
+  }
+})
+
+}
+
 async function logUser(req, res) {
   const email = req.body.email;
   const password = md5(req.body.password);
@@ -55,5 +86,6 @@ module.exports = {
   addUser,
   deleteUser,
   getUsers,
-  logUser
+  logUser,
+  Mail
 }
