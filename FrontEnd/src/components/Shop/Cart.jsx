@@ -23,7 +23,7 @@ const CartSection = (props) =>{
             }).catch(e=> console.log(e))
         }
     
-    const [user, setUser] = useState ("")
+    const [user, setUser] = useState ("");
     const today = new Date();
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -42,7 +42,7 @@ const CartSection = (props) =>{
             addBuy({
                 date: date,
                 email: localStorage.getItem("email"),
-                price: product.price,
+                price: (product.price * product.quantity),
                 quantity: product.quantity,
                 product_id: product.id
                 }
@@ -87,7 +87,7 @@ const CartSection = (props) =>{
                 <p id="total-holder">Subtotal: ${props.total}</p>
                
                 {   
-                    props.cart.length != 0 &&(
+                    (props.cart.length != 0 && !(user == "yes") ) &&(
                         <button id="buy-button" onClick={() => isUser()}>Comprar</button>
                     )
                 }
