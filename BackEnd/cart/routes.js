@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router()
-const productController = require('./controller')
+const buyController = require('./controller')
 
-router.get('/',TaskController.getTask)
+router.get('/getBuy',buyController.getBuy)
 
-router.post('/',TaskController.addTask)
+router.post('/createBuy',buyController.createBuy)
 
-router.delete('/:id',TaskController.deleteTask) 
-
-router.get('/:id',TaskController.getTaskById)
 
 module.exports = router;

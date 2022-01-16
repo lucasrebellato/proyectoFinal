@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 
 async function addUser(req, res) {
   const email = req.body.email;
-  const exist_user = await User.findAll(
+  const exist_user = await User.findOne(
     {  where: {
           email: email
         } } 

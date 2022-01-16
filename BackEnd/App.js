@@ -6,10 +6,11 @@ const session = require("express-session");
 
 const app = express();
 
+const cartRoutes = require('./cart/routes')
 const productRoutes = require('./products/routes')
 const userRoutes = require('./users/routes');
 const { router } = require('json-server');
-// const cartRoutes = require('./cart/routes')
+
 
 app.use(express.json());
 
@@ -47,7 +48,7 @@ app.use(
 );
 
 app.use("/Shop", productRoutes);
-// app.use("/Tienda/Carrito", cartRoutes);
+app.use("/Shop/Cart", cartRoutes);
 app.use("/Users", userRoutes);
 
 app.listen(8020,() => {

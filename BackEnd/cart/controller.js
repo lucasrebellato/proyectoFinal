@@ -1,29 +1,35 @@
-function addProduct() {
-    return (req, res) => {
-      let task = req.body;
-      task.id = maxExistingId + 1;
-      tasks.push(task);
-      res.send({ message: 'La tarea se ha agregado con éxito', task: task });
-    };
+const Buy = require('./buy');
+const User = require('../users/user')
+
+
+
+async function createBuy(req, res) {
+  const email = req.body.email;
+  const user = await User.findOne(
+    {  where: {
+          email: email
+        } } 
+      );
+  let buy = req.body;
+  buy.email = "";
+  buy.user_id = user.id;
+  console.log("llegue");
+  console.log(buy)
+  res.status(200).send({ message: 'La compra fue creado con éxito.', buy:  await Buy.create(buy)});
+  
   }
 
-function deleteTask() {
-    return (req, res) => {
-      tasks = tasks.filter(task => task.id != req.params.id);
-      res.send({ message: 'Se ha eliminado exitosamente', tasks: tasks });
-    };
-  }
-
-function getTask() {
+async function getBuy() {
     return (req, res) => {
       res.send(tasks);
     };
   }
 
-function getTaskById() {
-    return (req, res) => {
-      res.send(getById(req));
-    };
-  }
 
-  let cart = [ ]
+
+
+  module.exports = {
+    createBuy,
+    getBuy
+  }
+  

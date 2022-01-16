@@ -8,14 +8,14 @@ import {
 const CartSection = (props) =>{
 
     const addBuy = (buy) =>{
-        fetch('http://localhost:8020/Users/Mail',
+        fetch('http://localhost:8020/Shop/Cart/createBuy',
         {
             method:'POST',
             headers:{ 
             'Accept': 'application/json',
             'Content-Type':'application/json'
             },
-            body: JSON.stringify({...user})
+            body: JSON.stringify({...buy})
             })
             .then((data) => data.json())
             .then((data) => {
@@ -24,6 +24,8 @@ const CartSection = (props) =>{
         }
     
     const [user, setUser] = useState ("")
+    const today = new Date();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
     const isUser = () => {
         if(localStorage.getItem("email").length != 0){
@@ -35,17 +37,22 @@ const CartSection = (props) =>{
     }
 
     const createBuy = () =>{
+    
         props.cart.forEach(product => {
-            // addBuy({
-            //     date: date,
-            //     password:password}
-            // )
+            addBuy({
+                date: date,
+                email: localStorage.getItem("email"),
+                price: product.price,
+                quantity: product.quantity,
+                product_id: product.id
+                }
+            )
         });
     }
 
     return (
         <main>
-
+            
             <div id="cart">
                 <Link to= "/Tienda" id="comeback-shop" className="fa fa-arrow-circle-left"></Link>
                 <h1>Carrito</h1>
