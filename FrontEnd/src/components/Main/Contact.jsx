@@ -33,6 +33,7 @@ const Contact = () => {
     const createEmail = () => {
         sendMail({
             name : name,
+            last_name: lastName,
             email: email,
             message: message
         })
