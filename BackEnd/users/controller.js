@@ -31,7 +31,6 @@ async function getUsers(req, res) {
 
 
 async function Mail(req, res) {
-    console.log("llegue hasta back");
     const transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",
       post: 587,
@@ -46,14 +45,13 @@ const mailOptions = {
   from: req.body.email,
   to : "OrigenEcoAlmacen@gmail.com",
   subject: req.body.name +" ha hecho un comentario",
-  text: req.body.message + "Firma: "+req.body.name+ " "+req.body.last_name 
+  text:req.body.name+ " "+req.body.last_name + " ha escrito: "+ req.body.message 
 }
 
 transporter.sendMail(mailOptions, (error, info) => {
   if(error){
     res.status(500).send(error.message);
   }else{
-    console.log("mail enviado");
     res.status(200).jsonp(req.body);
   }
 })
