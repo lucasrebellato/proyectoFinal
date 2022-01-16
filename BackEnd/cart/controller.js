@@ -13,23 +13,12 @@ async function createBuy(req, res) {
   let buy = req.body;
   buy.email = "";
   buy.user_id = user.id;
-  console.log("llegue");
-  console.log(buy)
   res.status(200).send({ message: 'La compra fue creado con éxito.', buy:  await Buy.create(buy)});
   
   }
 
-async function getBuy() {
-    return (req, res) => {
-      res.send(tasks);
-    };
-  }
-
-
-
 
   module.exports = {
-    createBuy,
-    getBuy
+    createBuy
   }
   

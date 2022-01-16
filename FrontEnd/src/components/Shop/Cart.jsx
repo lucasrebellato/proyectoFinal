@@ -48,24 +48,26 @@ const CartSection = (props) =>{
                 }
             )
         });
+        props.cart.splice(0, props.cart.length);
     }
 
     return (
         <main>
             
             <div id="cart">
-                <Link to= "/Tienda" id="comeback-shop" className="fa fa-arrow-circle-left"></Link>
+                <Link to= "/Tienda" id="comeback-shop" className="fa fa-arrow-circle-left" ></Link>
                 <h1>Carrito</h1>
 
                 <ul id="cart-holder">
             
                 {   
-                    props.cart.length == 0 &&(
+                    (props.cart.length == 0 && !(user == "yes")) &&(
                         <p style={{textAlign:"center"}} className="error notProduct">Usted no ha añadido productos</p>
                     )
                 }
 
-                {
+                {   
+                    !(user == "yes") && (
                     props.cart.map((product, index) =>{
                         
                         let id= product.id;
@@ -80,11 +82,15 @@ const CartSection = (props) =>{
                             
                         </li>
                     })
+                    )
                 }
                 
                 </ul>
-            
-                <p id="total-holder">Subtotal: ${props.total}</p>
+                {
+                     !(user == "yes") && (
+                        <p id="total-holder">Subtotal: ${props.total}</p>
+                     )
+                }
                
                 {   
                     (props.cart.length != 0 && !(user == "yes") ) &&(
@@ -93,7 +99,7 @@ const CartSection = (props) =>{
                 }
                 {
                     user == "yes" && (
-                        <p className="correct">Compra realizada con exito, le enviaremos un mensaje a su correo.</p> 
+                        <p style={{textAlign:"center"}} className="correct">Compra realizada con exito, le enviaremos un mensaje a su correo.<br/> TOTAL A PAGAR: ${props.total}</p> 
                     )
 
                 }
