@@ -55,6 +55,7 @@ import * as utils from "../../js/validadores"
 
 
     const validateSignUp = () => {
+        
          (utils.validateNameOrLast(name) || utils.validateNameOrLast(lastName) || utils.validateAddress(address) || utils.validateTelephone(phone) || utils.validatePassword(password) || utils.validateEmail(email)) ? setAllOk(false) : setAllOk(true);
         updateInfo();
         if(allOk){

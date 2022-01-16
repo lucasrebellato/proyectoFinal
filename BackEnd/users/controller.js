@@ -10,7 +10,7 @@ async function addUser(req, res) {
           email: email
         } } 
       );
-  if(exist_user.length == 0){
+  if(exist_user == null){
   let user = req.body;
   user.password = md5(req.body.password);
   res.status(200).send({ message: 'El usuario fue creado con éxito.', user:  await User.create(user)});
