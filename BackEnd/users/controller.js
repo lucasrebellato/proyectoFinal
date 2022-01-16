@@ -44,7 +44,7 @@ async function Mail(req, res) {
 
 const mailOptions = {
   from: req.body.email,
-  to : "origenEcoAlmacen@gmail.com",
+  to : "OrigenEcoAlmacen@gmail.com",
   subject: req.body.name +" ha hecho un comentario",
   text: req.body.message + "Firma: "+req.body.name+ " "+req.body.last_name 
 }
